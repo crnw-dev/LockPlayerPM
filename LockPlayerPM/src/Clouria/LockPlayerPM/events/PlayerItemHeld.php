@@ -5,12 +5,18 @@ declare(strict_types=1);
 
 namespace Clouria\LockPlayerPM\events;
 
-use Clouria\LockPlayerPM\LockerBase;
+use Clouria\LockPlayerPM\LockerInterface;
+use pocketmine\event\Cancellable;
 use pocketmine\event\player\PlayerItemHeldEvent;
 
-class PlayerItemHeld extends LockerBase
+class PlayerItemHeld implements LockerInterface
 {
 
-    protected array $events = [PlayerItemHeldEvent::class];
-
+    public function lock(Cancellable $event) : void
+    {
+        if (!$event instanceof PlayerItemHeldEvent) {
+            return;
+        }
+        $event->cancel();
+    }
 }
