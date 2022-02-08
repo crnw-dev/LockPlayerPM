@@ -11,20 +11,22 @@ abstract class LockerBase
 {
 
     /**
-     * @var LockerBase[]
+     * @var string[]
+     * @phpstan-param class-string<Event>
      */
-    protected array $lockers = [];
+    protected array $events = [];
 
-    public function addLocker(LockerBase $locker) : void {
-        $this->lockers[] = $locker;
+    public function addLocker(LockerBase $locker) : void
+    {
+        $this->events = array_merge($this->events, $locker->getEvents());
     }
 
-    public function getEvents() : array {
-        $events = [];
-        foreach ($this->lockers as $locker) {
-            $events = array_merge($events, $locker->getEvents());
-        }
-        return $events;
+    /**
+     * @return string[]
+     */
+    public function getEvents() : array
+    {
+        return $this->events;
     }
 
 }
