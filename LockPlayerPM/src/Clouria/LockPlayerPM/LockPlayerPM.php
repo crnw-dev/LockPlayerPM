@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-class LockPlayerPM
+final class LockPlayerPM
 {
 
     private function __construct()
