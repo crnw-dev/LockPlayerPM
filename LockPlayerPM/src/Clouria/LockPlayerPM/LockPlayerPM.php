@@ -32,6 +32,7 @@ final class LockPlayerPM
 
     private function debug(string $string) : void
     {
+        $this->plugin->getLogger()->debug($string);
     }
 
 }
