@@ -3,6 +3,8 @@
 
 declare(strict_types=1);
 
+namespace Clouria\LockPlayerPM;
+
 final class LockPlayerPM
 {
 
