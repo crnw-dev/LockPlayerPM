@@ -1,0 +1,13 @@
+{
+  "name": "crnw-dev/lockplayerpm",
+  "type": "library",
+  "require": {
+    "pocketmine/pocketmine-mp": "4.0.0"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-0": {
+      "Clouria\\LockPlayerPM\\": "LockPlayerPM/src/"
+    }
+  }
+}
