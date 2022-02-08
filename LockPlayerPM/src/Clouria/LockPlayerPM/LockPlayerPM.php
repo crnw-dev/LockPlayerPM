@@ -5,6 +5,9 @@ declare(strict_types=1);
 
 namespace Clouria\LockPlayerPM;
 
+use pocketmine\plugin\Plugin;
+use function str_replace;
+
 final class LockPlayerPM
 {
 
@@ -13,8 +16,22 @@ final class LockPlayerPM
 
     }
 
-    public static function init() : self {
+    public static function init(Plugin $plugin) : self
+    {
+        $self = new self;
+        $self->plugin = $plugin;
+        $self->debug("Initialized " . str_replace(
+                __NAMESPACE__ . "\\",
+                "",
+                __CLASS__
+            ));
+        return $self;
+    }
 
+    private Plugin $plugin;
+
+    private function debug(string $string) : void
+    {
     }
 
 }
