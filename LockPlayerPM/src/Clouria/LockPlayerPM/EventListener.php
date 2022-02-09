@@ -159,9 +159,14 @@ class EventListener implements Listener
      *
      * @priority MONITOR
      */
-    public function onPlayerItemConsumeEvent(PlayerItemConsumeEvent $event)
+    public function onPlayerItemConsumeEvent(PlayerItemConsumeEvent $event) : void
     {
-
+        $filters = $this->getFilters($event->getPlayer());
+        if ($filters === null) {
+            return;
+        }
+        $this->debug("Cancelled item consumption for locked player {$event->getPlayer()->getName()}");
+        $event->cancel();
     }
 
     /**
