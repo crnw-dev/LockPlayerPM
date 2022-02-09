@@ -73,7 +73,13 @@ final class LockPlayerPM
         array  $commands
     ) : callable
     {
-
+        return $this->lockButCanRunCommands(
+            $player,
+            fn(PlayerCommandPreprocessEvent $event) => $this->commandFilter(
+                $commands,
+                $event
+            )
+        );
     }
 
     /**
