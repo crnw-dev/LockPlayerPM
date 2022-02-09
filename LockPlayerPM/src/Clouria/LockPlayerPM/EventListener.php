@@ -63,6 +63,13 @@ class EventListener implements Listener
         );
     }
 
+    private function isLocked(Player $player) : bool
+    {
+        return isset(
+            $this->players[$player->getUniqueId()->getBytes()]
+        );
+    }
+
     /**
      * @param PlayerCommandPreprocessEvent $event
      *
