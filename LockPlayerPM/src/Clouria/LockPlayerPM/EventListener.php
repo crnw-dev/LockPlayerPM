@@ -210,7 +210,7 @@ class EventListener implements Listener
         if ($filters === null) {
             return;
         }
-        $this->debug("Cancelled block break from locked player {$event->getPlayer()->getName()}");
+        $this->debug("Cancelled a block from being broken by locked player {$event->getPlayer()->getName()}");
         $event->cancel();
     }
 
@@ -225,7 +225,7 @@ class EventListener implements Listener
         if ($filters === null) {
             return;
         }
-        $this->debug("Cancelled block place from locked player {$event->getPlayer()->getName()}");
+        $this->debug("Cancelled a block from being placed by locked player {$event->getPlayer()->getName()}");
         $event->cancel();
     }
 
@@ -240,7 +240,7 @@ class EventListener implements Listener
         if ($filters === null) {
             return;
         }
-        $this->debug("Cancelled inventory from opening for locked player {$event->getPlayer()->getName()}");
+        $this->debug("Cancelled an inventory from being opened by locked player {$event->getPlayer()->getName()}");
         $event->cancel();
     }
 
