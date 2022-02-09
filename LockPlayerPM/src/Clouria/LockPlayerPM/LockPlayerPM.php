@@ -7,9 +7,12 @@ namespace Clouria\LockPlayerPM;
 
 use Closure;
 use pocketmine\command\Command;
+use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\player\PlayerCommandPreprocessEvent;
+use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\player\Player;
 use pocketmine\plugin\Plugin;
+use pocketmine\world\Position;
 use function explode;
 use function str_replace;
 use function substr;
@@ -122,6 +125,13 @@ final class LockPlayerPM
 
     }
 
+    /**
+     * @param Player $player
+     * @param int[] $entityIds
+     * @param Position[] $blockPositions
+     * @param Command[] $commands
+     * @return callable
+     */
     public function lockWithSpecifiedExceptions(
         Player $player,
         array  $entityIds = [],
@@ -130,6 +140,33 @@ final class LockPlayerPM
     ) : callable
     {
         return $this->lockWithExceptions(
+            $player,
+            function (EntityDamageByEntityEvent $event) use
+            (
+                $entityIds
+            ) : bool {
+                foreach ($entityIds as $entityId) {
+                    if ($entityId === $event->getEntity()->getId()) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+            function (PlayerInteractEvent $event) use
+            (
+                $blockPositions
+            ) : bool {
+                foreach ($blockPositions as $position) {
+                    if ($position->equals($position)) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+            fn(PlayerCommandPreprocessEvent $event) => $this->commandFilter(
+                $commands,
+                $event
+            )
         );
     }
 
