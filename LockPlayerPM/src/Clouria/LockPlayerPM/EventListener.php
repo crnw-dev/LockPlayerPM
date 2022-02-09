@@ -19,6 +19,7 @@ use pocketmine\event\player\PlayerDropItemEvent;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerItemConsumeEvent;
 use pocketmine\event\player\PlayerMoveEvent;
+use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\player\Player;
 
 class EventListener implements Listener
@@ -37,11 +38,29 @@ class EventListener implements Listener
         ($this->debugCallable)($string);
     }
 
+    /**
+     * @var Player[] Key = player UUID in 16 bytes.
+     */
+    private array $players = [];
+
     public function lock(
         Player $player
     ) : callable
     {
+        $this->players[$player->getUniqueId()->getBytes()] = $player;
+        return fn() => $this->unlock($player);
+    }
 
+    public function onPlayerQuitEvent(PlayerQuitEvent $event) : void
+    {
+        $this->unlock($event->getPlayer());
+    }
+
+    private function unlock(Player $player) : void
+    {
+        unset(
+            $this->players[$player->getUniqueId()->getBytes()]
+        );
     }
 
     /**
