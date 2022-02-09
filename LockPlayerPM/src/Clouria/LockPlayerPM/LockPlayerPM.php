@@ -50,8 +50,34 @@ final class LockPlayerPM
         $this->listener = $listener;
     }
 
-    public function lockEverything(Player $player) : Closure {
+    public function lockEverything(Player $player) : Closure
+    {
         return $this->listener->lock($player);
+    }
+
+    public function lockButCanMove(Player $player) : Closure
+    {
+
+    }
+
+    public function lockButCanInteractWithCertainThings(
+        Player  $player,
+        Closure $itemFilter,
+        Closure $entityFilter,
+        Closure $blockFilter
+    ) : Closure
+    {
+
+    }
+
+    public function lockButCanInteractWithSpecifiedThings(
+        Player $player,
+        array  $items = [],
+        array  $entityIds = [],
+        array  $blockPositions = []
+    ) : Closure
+    {
+
     }
 
 }
