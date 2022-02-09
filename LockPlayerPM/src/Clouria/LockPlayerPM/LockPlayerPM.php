@@ -114,8 +114,8 @@ final class LockPlayerPM
 
     public function lockWithExceptions(
         Player  $player,
-        Closure $interactionFilter,
         Closure $entityFilter,
+        Closure $interactionFilter,
         Closure $commandFilter
     ) : callable
     {
