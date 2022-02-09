@@ -116,7 +116,6 @@ final class LockPlayerPM
         Player  $player,
         Closure $itemFilter,
         Closure $entityFilter,
-        Closure $blockFilter,
         Closure $commandFilter
     ) : callable
     {
@@ -131,7 +130,8 @@ final class LockPlayerPM
         array  $commands = []
     ) : callable
     {
-
+        return $this->lockWithExceptions(
+        );
     }
 
 }
