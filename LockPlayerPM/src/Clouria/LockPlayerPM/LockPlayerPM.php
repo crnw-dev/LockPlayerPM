@@ -138,7 +138,9 @@ final class LockPlayerPM
                 $blockPositions
             ) : bool {
                 foreach ($blockPositions as $position) {
-                    if ($position->equals($position)) {
+                    if ($position->equals(
+                        $event->getBlock()->getPosition()
+                    )) {
                         return true;
                     }
                 }
