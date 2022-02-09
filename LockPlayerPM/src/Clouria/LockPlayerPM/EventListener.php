@@ -21,10 +21,6 @@ use pocketmine\event\player\PlayerItemConsumeEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\player\Player;
-use pocketmine\Server;
-use function explode;
-use function substr;
-use function trim;
 
 class EventListener implements Listener
 {
@@ -80,11 +76,9 @@ class EventListener implements Listener
         );
     }
 
-    private function isNotLocked(Player $player) : bool
+    private function getFilters(Player $player) : ?array
     {
-        return !isset(
-            $this->players[$player->getUniqueId()->getBytes()]
-        );
+        return $this->players[$player->getUniqueId()->getBytes()] ?? null;
     }
 
     /**
@@ -94,21 +88,15 @@ class EventListener implements Listener
      */
     public function onPlayerCommandPreprocessEvent(PlayerCommandPreprocessEvent $event) : void
     {
-        if ($this->isNotLocked($event->getPlayer())) {
+        $filters = $this->getFilters($event->getPlayer());
+        if ($filters === null) {
             return;
         }
-        $command = Server::getInstance()->getCommandMap()->getCommand(
-            substr(
-                explode(
-                    " ",
-                    trim($event->getMessage())
-                )[0],
-                1
-            )
-        );
-        if ($command instanceof IgnoreAuthenticationCommandInterface) {
+        if ($filters[1]($event)) {
+            $this->debug("Ignored (filtered out) command execution for locked player {$event->getPlayer()->getName()}");
             return;
         }
+        $this->debug("Cancelled command execution for locked player {$event->getPlayer()->getName()}");
         $event->cancel();
     }
 
