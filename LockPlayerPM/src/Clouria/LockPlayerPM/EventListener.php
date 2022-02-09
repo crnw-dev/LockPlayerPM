@@ -51,6 +51,7 @@ class EventListener implements Listener
         return fn() => $this->unlock($player);
     }
 
+    /** @noinspection PhpUnused */
     public function onPlayerQuitEvent(PlayerQuitEvent $event) : void
     {
         $this->unlock($event->getPlayer());
