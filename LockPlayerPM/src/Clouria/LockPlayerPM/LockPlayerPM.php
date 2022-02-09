@@ -20,7 +20,9 @@ final class LockPlayerPM
     {
         $self = new self;
         $self->plugin = $plugin;
-        $self->listener = new EventListener($plugin);
+        $self->listener = new EventListener(
+            fn(string $string) => $this->debug($string)
+        );
         $self->debug("Initialized " . str_replace(
                 __NAMESPACE__ . "\\",
                 "",
