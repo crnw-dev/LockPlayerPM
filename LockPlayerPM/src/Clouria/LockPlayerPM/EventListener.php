@@ -77,6 +77,7 @@ class EventListener implements Listener
 
     private function unlock(Player $player) : void
     {
+        $this->debug("Unlocking player {$player->getName()}");
         unset(
             $this->players[$player->getUniqueId()->getBytes()]
         );
