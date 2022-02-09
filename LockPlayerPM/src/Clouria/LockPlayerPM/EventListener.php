@@ -42,9 +42,6 @@ class EventListener implements Listener
         ($this->debugCallable)($string);
     }
 
-    /**
-     * @var Player[] Key = player UUID in 16 bytes.
-     */
     private array $players = [];
 
     public function lock(
