@@ -55,7 +55,12 @@ class EventListener implements Listener
         Closure $interactionFilter
     ) : callable
     {
-        $this->players[$player->getUniqueId()->getBytes()] = [
+        $this->debug("Locking player {$player->getName()}");
+        $key = $player->getUniqueId()->getBytes();
+        if (isset($this->players[$key])) {
+            $this->debug("Player is already locked, overriding previous lock");
+        }
+        $this->players[$key] = [
             $canMove,
             $commandFilter,
             $entityFilter,
