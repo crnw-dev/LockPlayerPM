@@ -255,7 +255,7 @@ class EventListener implements Listener
         foreach ($this->players as $uuid => $filters) {
             $player = Server::getInstance()->getPlayerByRawUUID($uuid);
             if ($player?->getInventory() === $event->getInventory()) {
-                $this->debug("Cancelled an item from being picked up by locked player {$player->getName()}");
+                $this->debug("Cancelled a block item from being picked up by locked player {$player->getName()}");
                 $event->cancel();
             }
         }
