@@ -30,9 +30,19 @@ final class LockPlayerPM
 
     private Plugin $plugin;
 
+    private EventListener $listener;
+
     private function debug(string $string) : void
     {
         $this->plugin->getLogger()->debug($string);
+    }
+
+    /**
+     * @param EventListener $listener
+     */
+    public function setListener(EventListener $listener) : void
+    {
+        $this->listener = $listener;
     }
 
 }
