@@ -234,9 +234,14 @@ class EventListener implements Listener
      *
      * @priority MONITOR
      */
-    public function onInventoryOpen(InventoryOpenEvent $event)
+    public function onInventoryOpen(InventoryOpenEvent $event) : void
     {
-
+        $filters = $this->getFilters($event->getPlayer());
+        if ($filters === null) {
+            return;
+        }
+        $this->debug("Cancelled inventory from opening for locked player {$event->getPlayer()->getName()}");
+        $event->cancel();
     }
 
     /**
