@@ -21,6 +21,10 @@ use pocketmine\event\player\PlayerItemConsumeEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\player\Player;
+use pocketmine\Server;
+use function explode;
+use function substr;
+use function trim;
 
 class EventListener implements Listener
 {
@@ -78,6 +82,22 @@ class EventListener implements Listener
      */
     public function onPlayerCommandPreprocessEvent(PlayerCommandPreprocessEvent $event) : void
     {
+        if (!$this->isLocked($event->getPlayer())) {
+            return;
+        }
+        $command = Server::getInstance()->getCommandMap()->getCommand(
+            substr(
+                explode(
+                    " ",
+                    trim($event->getMessage())
+                )[0],
+                1
+            )
+        );
+        if ($command instanceof IgnoreAuthenticationCommandInterface) {
+            return;
+        }
+        $event->cancel();
     }
 
     /**
