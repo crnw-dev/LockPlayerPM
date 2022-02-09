@@ -204,9 +204,14 @@ class EventListener implements Listener
      *
      * @priority MONITOR
      */
-    public function onBlockBreakEvent(BlockBreakEvent $event)
+    public function onBlockBreakEvent(BlockBreakEvent $event) : void
     {
-
+        $filters = $this->getFilters($event->getPlayer());
+        if ($filters === null) {
+            return;
+        }
+        $this->debug("Cancelled block break from locked player {$event->getPlayer()->getName()}");
+        $event->cancel();
     }
 
     /**
