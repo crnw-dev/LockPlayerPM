@@ -109,7 +109,7 @@ final class LockPlayerPM
 
     public function lockButCanMove(Player $player) : callable
     {
-
+        return $this->lockWithSpecifiedExceptions($player);
     }
 
     public function lockWithExceptions(
