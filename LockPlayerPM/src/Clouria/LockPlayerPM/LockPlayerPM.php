@@ -55,14 +55,17 @@ final class LockPlayerPM
         return $this->listener->lock($player);
     }
 
-    public function lockButCanRunCommands(Player $player) : Closure
+    public function lockButCanRunCommands(
+        Player $player,
+        Closure $commandFilter
+    ) : Closure
     {
 
     }
 
     public function lockButCanRunSpecifiedCommands(
         Player $player,
-        array $commands
+        array  $commands
     ) : Closure
     {
 
