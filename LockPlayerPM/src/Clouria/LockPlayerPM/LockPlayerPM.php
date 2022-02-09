@@ -50,7 +50,7 @@ final class LockPlayerPM
         $this->listener = $listener;
     }
 
-    public function lockEverything(Player $player) : Closure
+    public function lockEverything(Player $player) : callable
     {
         return $this->listener->lock($player);
     }
@@ -58,7 +58,7 @@ final class LockPlayerPM
     public function lockButCanRunCommands(
         Player $player,
         Closure $commandFilter
-    ) : Closure
+    ) : callable
     {
 
     }
@@ -66,12 +66,12 @@ final class LockPlayerPM
     public function lockButCanRunSpecifiedCommands(
         Player $player,
         array  $commands
-    ) : Closure
+    ) : callable
     {
 
     }
 
-    public function lockButCanMove(Player $player) : Closure
+    public function lockButCanMove(Player $player) : callable
     {
 
     }
@@ -82,7 +82,7 @@ final class LockPlayerPM
         Closure $entityFilter,
         Closure $blockFilter,
         Closure $commandFilter
-    ) : Closure
+    ) : callable
     {
 
     }
@@ -93,7 +93,7 @@ final class LockPlayerPM
         array  $entityIds = [],
         array  $blockPositions = [],
         array  $commands = []
-    ) : Closure
+    ) : callable
     {
 
     }
