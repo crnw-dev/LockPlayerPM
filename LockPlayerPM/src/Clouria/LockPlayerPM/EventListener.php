@@ -125,8 +125,18 @@ class EventListener implements Listener
      *
      * @priority MONITOR
      */
-    public function onPlayerInteractEvent(PlayerInteractEvent $event)
+    public function onPlayerInteractEvent(PlayerInteractEvent $event) : void
     {
+        $filters = $this->getFilters($event->getPlayer());
+        if ($filters === null) {
+            return;
+        }
+        if ($filters[3]($event)) {
+            $this->debug("Ignored (filtered out) interaction for locked player {$event->getPlayer()->getName()}");
+            return;
+        }
+        $this->debug("Cancelled interaction for locked player {$event->getPlayer()->getName()}");
+        $event->cancel();
     }
 
     /**
