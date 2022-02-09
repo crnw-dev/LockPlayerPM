@@ -107,6 +107,16 @@ class EventListener implements Listener
      */
     public function onPlayerMoveEvent(PlayerMoveEvent $event)
     {
+        $filters = $this->getFilters($event->getPlayer());
+        if ($filters === null) {
+            return;
+        }
+        if ($filters[0]) {
+            $this->debug("Ignored (filtered out) movement for locked player {$event->getPlayer()->getName()}");
+            return;
+        }
+        $this->debug("Cancelled movement for locked player {$event->getPlayer()->getName()}");
+        $event->cancel();
         $event->getPlayer()->onGround = true;
     }
 
