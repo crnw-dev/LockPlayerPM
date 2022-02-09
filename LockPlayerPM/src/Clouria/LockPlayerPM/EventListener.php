@@ -105,7 +105,7 @@ class EventListener implements Listener
      *
      * @priority MONITOR
      */
-    public function onPlayerMoveEvent(PlayerMoveEvent $event)
+    public function onPlayerMoveEvent(PlayerMoveEvent $event) : void
     {
         $filters = $this->getFilters($event->getPlayer());
         if ($filters === null) {
