@@ -21,6 +21,7 @@ use pocketmine\event\player\PlayerItemConsumeEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\player\Player;
+use pocketmine\Server;
 
 class EventListener implements Listener
 {
@@ -249,9 +250,15 @@ class EventListener implements Listener
      *
      * @priority MONITOR
      */
-    public function onBlockItemPickupEvent(BlockItemPickupEvent $event)
+    public function onBlockItemPickupEvent(BlockItemPickupEvent $event) : void
     {
-
+        foreach ($this->players as $uuid => $filters) {
+            $player = Server::getInstance()->getPlayerByRawUUID($uuid);
+            if ($player?->getInventory() === $event->getInventory()) {
+                $this->debug("Cancelled an item from being picked up by locked player {$player->getName()}");
+                $event->cancel();
+            }
+        }
     }
 
     /**
