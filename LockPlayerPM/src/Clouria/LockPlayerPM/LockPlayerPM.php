@@ -5,6 +5,8 @@ declare(strict_types=1);
 
 namespace Clouria\LockPlayerPM;
 
+use Closure;
+use pocketmine\player\Player;
 use pocketmine\plugin\Plugin;
 use function str_replace;
 
@@ -46,6 +48,10 @@ final class LockPlayerPM
     public function setListener(EventListener $listener) : void
     {
         $this->listener = $listener;
+    }
+
+    public function lock(Player $player) : Closure {
+        return $this->listener->lock($player);
     }
 
 }
