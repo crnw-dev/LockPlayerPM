@@ -124,7 +124,6 @@ final class LockPlayerPM
 
     public function lockWithSpecifiedExceptions(
         Player $player,
-        array  $items = [],
         array  $entityIds = [],
         array  $blockPositions = [],
         array  $commands = []
