@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace Clouria\LockPlayerPM;
 
+use Closure;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockItemPickupEvent;
 use pocketmine\event\block\BlockPlaceEvent;
@@ -19,15 +20,21 @@ use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerItemConsumeEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\player\Player;
-use pocketmine\plugin\Plugin;
 
 class EventListener implements Listener
 {
 
     public function __construct(
-        Plugin $plugin
+        private Closure $debugCallable
     )
     {
+    }
+
+    private function debug(
+        string $string
+    ) : void
+    {
+        ($this->debugCallable)($string);
     }
 
     public function lock(
