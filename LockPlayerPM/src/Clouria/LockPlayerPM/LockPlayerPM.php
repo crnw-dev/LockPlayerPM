@@ -60,29 +60,7 @@ final class LockPlayerPM
 
     public function lockEverything(Player $player) : callable
     {
-        return $this->listener->lock($player);
-    }
-
-    public function lockButCanRunCommands(
-        Player  $player,
-        Closure $commandFilter
-    ) : callable
-    {
-
-    }
-
-    public function lockButCanRunSpecifiedCommands(
-        Player $player,
-        array  $commands
-    ) : callable
-    {
-        return $this->lockButCanRunCommands(
-            $player,
-            fn(PlayerCommandPreprocessEvent $event) => $this->commandFilter(
-                $commands,
-                $event
-            )
-        );
+        return $this->lockWithSpecifiedExceptions($player);
     }
 
     /**
@@ -110,16 +88,12 @@ final class LockPlayerPM
         return false;
     }
 
-    public function lockButCanMove(Player $player) : callable
-    {
-        return $this->lockWithSpecifiedExceptions($player);
-    }
-
     public function lockWithExceptions(
         Player  $player,
+        bool    $canMove,
+        Closure $commandFilter,
         Closure $entityFilter,
-        Closure $interactionFilter,
-        Closure $commandFilter
+        Closure $interactionFilter
     ) : callable
     {
 
@@ -127,20 +101,27 @@ final class LockPlayerPM
 
     /**
      * @param Player $player
+     * @param bool $canMove
+     * @param Command[] $commands
      * @param int[] $entityIds
      * @param Position[] $blockPositions
-     * @param Command[] $commands
      * @return callable
      */
     public function lockWithSpecifiedExceptions(
         Player $player,
+        bool   $canMove = false,
+        array  $commands = [],
         array  $entityIds = [],
-        array  $blockPositions = [],
-        array  $commands = []
+        array  $blockPositions = []
     ) : callable
     {
         return $this->lockWithExceptions(
             $player,
+            $canMove,
+            fn(PlayerCommandPreprocessEvent $event) => $this->commandFilter(
+                $commands,
+                $event
+            ),
             function (EntityDamageByEntityEvent $event) use
             (
                 $entityIds
@@ -162,11 +143,7 @@ final class LockPlayerPM
                     }
                 }
                 return false;
-            },
-            fn(PlayerCommandPreprocessEvent $event) => $this->commandFilter(
-                $commands,
-                $event
-            )
+            }
         );
     }
 
