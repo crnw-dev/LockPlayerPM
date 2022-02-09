@@ -68,9 +68,9 @@ class EventListener implements Listener
         );
     }
 
-    private function isLocked(Player $player) : bool
+    private function isNotLocked(Player $player) : bool
     {
-        return isset(
+        return !isset(
             $this->players[$player->getUniqueId()->getBytes()]
         );
     }
@@ -82,7 +82,7 @@ class EventListener implements Listener
      */
     public function onPlayerCommandPreprocessEvent(PlayerCommandPreprocessEvent $event) : void
     {
-        if (!$this->isLocked($event->getPlayer())) {
+        if ($this->isNotLocked($event->getPlayer())) {
             return;
         }
         $command = Server::getInstance()->getCommandMap()->getCommand(
