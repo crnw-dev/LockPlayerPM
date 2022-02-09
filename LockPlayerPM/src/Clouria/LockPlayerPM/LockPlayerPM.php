@@ -50,7 +50,7 @@ final class LockPlayerPM
         $this->listener = $listener;
     }
 
-    public function lock(Player $player) : Closure {
+    public function lockEverything(Player $player) : Closure {
         return $this->listener->lock($player);
     }
 
