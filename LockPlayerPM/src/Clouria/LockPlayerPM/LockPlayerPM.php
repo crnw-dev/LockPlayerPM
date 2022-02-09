@@ -96,7 +96,13 @@ final class LockPlayerPM
         Closure $interactionFilter
     ) : callable
     {
-
+        $this->listener->lock(
+            $player,
+            $canMove,
+            $commandFilter,
+            $entityFilter,
+            $interactionFilter
+        );
     }
 
     /**

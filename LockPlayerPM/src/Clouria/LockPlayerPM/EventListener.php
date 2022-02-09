@@ -48,10 +48,19 @@ class EventListener implements Listener
     private array $players = [];
 
     public function lock(
-        Player $player
+        Player  $player,
+        bool    $canMove,
+        Closure $commandFilter,
+        Closure $entityFilter,
+        Closure $interactionFilter
     ) : callable
     {
-        $this->players[$player->getUniqueId()->getBytes()] = $player;
+        $this->players[$player->getUniqueId()->getBytes()] = [
+            $canMove,
+            $commandFilter,
+            $entityFilter,
+            $interactionFilter
+        ];
         return fn() => $this->unlock($player);
     }
 
