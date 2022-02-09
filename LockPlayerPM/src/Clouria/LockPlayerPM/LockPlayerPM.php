@@ -6,9 +6,14 @@ declare(strict_types=1);
 namespace Clouria\LockPlayerPM;
 
 use Closure;
+use pocketmine\command\Command;
+use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\player\Player;
 use pocketmine\plugin\Plugin;
+use function explode;
 use function str_replace;
+use function substr;
+use function trim;
 
 final class LockPlayerPM
 {
@@ -56,7 +61,7 @@ final class LockPlayerPM
     }
 
     public function lockButCanRunCommands(
-        Player $player,
+        Player  $player,
         Closure $commandFilter
     ) : callable
     {
@@ -71,13 +76,38 @@ final class LockPlayerPM
 
     }
 
+    /**
+     * @param Command[] $commands
+     * @param PlayerCommandPreprocessEvent $event
+     * @return bool
+     */
+    private function commandFilter(
+        array                        $commands,
+        PlayerCommandPreprocessEvent $event
+    ) : bool
+    {
+        $label = substr(
+            explode(
+                " ",
+                trim($event->getMessage())
+            )[0],
+            1
+        );
+        foreach ($commands as $command) {
+            if ($command->getName() === $label) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function lockButCanMove(Player $player) : callable
     {
 
     }
 
     public function lockWithExceptions(
-        Player $player,
+        Player  $player,
         Closure $itemFilter,
         Closure $entityFilter,
         Closure $blockFilter,
