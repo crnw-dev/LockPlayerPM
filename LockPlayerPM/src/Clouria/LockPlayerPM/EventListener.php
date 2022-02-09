@@ -219,9 +219,14 @@ class EventListener implements Listener
      *
      * @priority MONITOR
      */
-    public function onBlockPlaceEvent(BlockPlaceEvent $event)
+    public function onBlockPlaceEvent(BlockPlaceEvent $event) : void
     {
-
+        $filters = $this->getFilters($event->getPlayer());
+        if ($filters === null) {
+            return;
+        }
+        $this->debug("Cancelled block place from locked player {$event->getPlayer()->getName()}");
+        $event->cancel();
     }
 
     /**
