@@ -268,7 +268,13 @@ class EventListener implements Listener
      */
     public function onEntityItemPickupEvent(EntityItemPickupEvent $event)
     {
-
+        foreach ($this->players as $uuid => $filters) {
+            $player = Server::getInstance()->getPlayerByRawUUID($uuid);
+            if ($player?->getInventory() === $event->getInventory()) {
+                $this->debug("Cancelled an entity item from being picked up by locked player {$player->getName()}");
+                $event->cancel();
+            }
+        }
     }
 
 }
