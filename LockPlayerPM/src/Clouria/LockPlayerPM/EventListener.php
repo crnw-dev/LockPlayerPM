@@ -174,10 +174,28 @@ class EventListener implements Listener
      *
      * @priority MONITOR
      */
-    public function onEntityDamageEvent(EntityDamageEvent $event)
+    public function onEntityDamageEvent(EntityDamageEvent $event) : void
     {
+        $players = [$event->getEntity()];
         if ($event instanceof EntityDamageByEntityEvent) {
-
+            $players[] = $event->getDamager();
+        }
+        foreach ($players as $index => $player) {
+            if (!$player instanceof Player) {
+                continue;
+            }
+            $filters = $this->getFilters($player);
+            if ($filters === null) {
+                continue;
+            }
+            if ($index === 0) {
+                $this->debug("Cancelled damage for locked player {$player->getName()}");
+            } elseif ($filters[2]($event)) {
+                $this->debug("Ignored (filtered out) attack from locked player {$player->getName()}");
+            } else {
+                $this->debug("Cancelled attack from locked player {$player->getName()}");
+                $event->cancel();
+            }
         }
     }
 
