@@ -5,7 +5,6 @@ declare(strict_types=1);
 
 namespace Clouria\LockPlayerPM;
 
-use pocketmine\player\Player;
 use pocketmine\plugin\Plugin;
 use function str_replace;
 
@@ -34,22 +33,6 @@ final class LockPlayerPM
     private function debug(string $string) : void
     {
         $this->plugin->getLogger()->debug($string);
-    }
-
-    public function lock(
-        Player     $player,
-        LockerBase $locker
-    ) : callable
-    {
-
-    }
-
-    public function unlock(
-        Player     $player,
-        LockerBase $locker
-    ) : void
-    {
-
     }
 
 }
