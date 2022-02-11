@@ -12,6 +12,7 @@ use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\player\Player;
 use pocketmine\plugin\Plugin;
+use pocketmine\Server;
 use pocketmine\world\Position;
 use function explode;
 use function str_replace;
@@ -32,6 +33,10 @@ final class LockPlayerPM
         $self->plugin = $plugin;
         $self->listener = new EventListener(
             fn(string $string) => $this->debug($string)
+        );
+        Server::getInstance()->getPluginManager()->registerEvents(
+            $self->listener,
+            $plugin
         );
         $self->debug("Initialized " . str_replace(
                 __NAMESPACE__ . "\\",
