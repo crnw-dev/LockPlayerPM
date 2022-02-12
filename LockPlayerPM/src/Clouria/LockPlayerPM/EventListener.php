@@ -6,6 +6,8 @@ declare(strict_types=1);
 namespace Clouria\LockPlayerPM;
 
 use Closure;
+use pocketmine\command\Command;
+use pocketmine\entity\Entity;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockItemPickupEvent;
 use pocketmine\event\block\BlockPlaceEvent;
@@ -22,6 +24,7 @@ use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\player\Player;
 use pocketmine\Server;
+use pocketmine\world\Position;
 
 class EventListener implements Listener
 {
@@ -42,11 +45,7 @@ class EventListener implements Listener
     private array $players = [];
 
     public function lock(
-        Player  $player,
-        bool    $canMove,
-        Closure $commandFilter,
-        Closure $entityFilter,
-        Closure $interactionFilter
+        Player  $player
     ) : callable
     {
         $this->debug("Locking player {$player->getName()}");
@@ -55,12 +54,50 @@ class EventListener implements Listener
             $this->debug("Player is already locked, overriding previous lock");
         }
         $this->players[$key] = [
-            $canMove,
-            $commandFilter,
-            $entityFilter,
-            $interactionFilter
         ];
         return fn() => $this->unlock($player);
+    }
+
+    public function setCanMove(
+        bool $value = true
+    ) : void {
+
+    }
+
+    public function setCommandFilter(
+        ?Closure $filter
+    ) : void {
+
+    }
+
+    public function setEntityFilter(
+        ?Closure $filter
+    ) : void {
+
+    }
+
+    public function setInteractionFilter(
+        ?Closure $filter
+    ) : void {
+
+    }
+
+    public function addIgnoreCommand(
+        Command $command
+    ) : void {
+
+    }
+
+    public function addIgnoreEntity(
+        Entity $entity
+    ) : void {
+
+    }
+
+    public function addIgnoreBlockPosition(
+        Position $position
+    ) : void {
+
     }
 
     /** @noinspection PhpUnused */
