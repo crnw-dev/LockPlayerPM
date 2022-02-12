@@ -60,48 +60,56 @@ class EventListener implements Listener
     }
 
     public function setCanMove(
+        Player $player,
         bool $value = true
     ) : void {
 
     }
 
     public function setCanChat(
+        Player $player,
         bool $value = true
     ) : void {
 
     }
 
     public function setCommandFilter(
+        Player $player,
         ?Closure $filter
     ) : void {
 
     }
 
     public function setEntityFilter(
+        Player $player,
         ?Closure $filter
     ) : void {
 
     }
 
     public function setInteractionFilter(
+        Player $player,
         ?Closure $filter
     ) : void {
 
     }
 
     public function addIgnoreCommand(
+        Player $player,
         Command $command
     ) : void {
 
     }
 
     public function addIgnoreEntity(
+        Player $player,
         Entity $entity
     ) : void {
 
     }
 
     public function addIgnoreBlockPosition(
+        Player $player,
         Position $position
     ) : void {
 
