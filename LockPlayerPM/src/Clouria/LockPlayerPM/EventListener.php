@@ -115,6 +115,10 @@ class EventListener implements Listener
 
     }
 
+    private function playerKey(Player $player) : string {
+        return $player->getUniqueId()->getBytes();
+    }
+
     /**
      * @param PlayerQuitEvent $event
      * @return void
