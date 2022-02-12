@@ -50,11 +50,10 @@ class EventListener implements Listener
     ) : callable
     {
         $this->debug("Locking player {$player->getName()}");
-        $key = $player->getUniqueId()->getBytes();
-        if (isset($this->players[$key])) {
+        if (isset($this->players[$this->playerKey($player)])) {
             $this->debug("Player is already locked, overriding previous lock");
         }
-        $this->players[$key] = [
+        $this->players[$this->playerKey($player)] = [
         ];
         return fn() => $this->unlock($player);
     }
