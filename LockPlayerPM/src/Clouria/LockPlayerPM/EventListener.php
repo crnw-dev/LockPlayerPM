@@ -64,6 +64,12 @@ class EventListener implements Listener
 
     }
 
+    public function setCanChat(
+        bool $value = true
+    ) : void {
+
+    }
+
     public function setCommandFilter(
         ?Closure $filter
     ) : void {
