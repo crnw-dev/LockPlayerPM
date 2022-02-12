@@ -100,7 +100,12 @@ class EventListener implements Listener
 
     }
 
-    /** @noinspection PhpUnused */
+    /**
+     * @param PlayerQuitEvent $event
+     * @return void
+     *
+     * @priority MONITOR
+     */
     public function onPlayerQuitEvent(PlayerQuitEvent $event) : void
     {
         $this->unlock($event->getPlayer());
@@ -121,8 +126,9 @@ class EventListener implements Listener
 
     /**
      * @param PlayerCommandPreprocessEvent $event
+     * @return void
      *
-     * @priority MONITOR
+     * @priority HIGH
      */
     public function onPlayerCommandPreprocessEvent(PlayerCommandPreprocessEvent $event) : void
     {
@@ -140,8 +146,9 @@ class EventListener implements Listener
 
     /**
      * @param PlayerMoveEvent $event
+     * @return void
      *
-     * @priority MONITOR
+     * @priority HIGH
      */
     public function onPlayerMoveEvent(PlayerMoveEvent $event) : void
     {
@@ -159,8 +166,9 @@ class EventListener implements Listener
 
     /**
      * @param PlayerInteractEvent $event
+     * @return void
      *
-     * @priority MONITOR
+     * @priority HIGH
      */
     public function onPlayerInteractEvent(PlayerInteractEvent $event) : void
     {
@@ -178,8 +186,9 @@ class EventListener implements Listener
 
     /**
      * @param PlayerDropItemEvent $event
+     * @return void
      *
-     * @priority MONITOR
+     * @priority HIGH
      */
     public function onPlayerDropItemEvent(PlayerDropItemEvent $event) : void
     {
@@ -193,8 +202,9 @@ class EventListener implements Listener
 
     /**
      * @param PlayerItemConsumeEvent $event
+     * @return void
      *
-     * @priority MONITOR
+     * @priority HIGH
      */
     public function onPlayerItemConsumeEvent(PlayerItemConsumeEvent $event) : void
     {
@@ -208,8 +218,9 @@ class EventListener implements Listener
 
     /**
      * @param EntityDamageEvent $event
+     * @return void
      *
-     * @priority MONITOR
+     * @priority HIGH
      */
     public function onEntityDamageEvent(EntityDamageEvent $event) : void
     {
@@ -238,8 +249,9 @@ class EventListener implements Listener
 
     /**
      * @param BlockBreakEvent $event
+     * @return void
      *
-     * @priority MONITOR
+     * @priority HIGH
      */
     public function onBlockBreakEvent(BlockBreakEvent $event) : void
     {
@@ -253,8 +265,9 @@ class EventListener implements Listener
 
     /**
      * @param BlockPlaceEvent $event
+     * @return void
      *
-     * @priority MONITOR
+     * @priority HIGH
      */
     public function onBlockPlaceEvent(BlockPlaceEvent $event) : void
     {
@@ -268,8 +281,9 @@ class EventListener implements Listener
 
     /**
      * @param InventoryOpenEvent $event
+     * @return void
      *
-     * @priority MONITOR
+     * @priority HIGH
      */
     public function onInventoryOpen(InventoryOpenEvent $event) : void
     {
@@ -283,8 +297,9 @@ class EventListener implements Listener
 
     /**
      * @param BlockItemPickupEvent $event
+     * @return void
      *
-     * @priority MONITOR
+     * @priority HIGH
      */
     public function onBlockItemPickupEvent(BlockItemPickupEvent $event) : void
     {
@@ -299,8 +314,9 @@ class EventListener implements Listener
 
     /**
      * @param EntityItemPickupEvent $event
+     * @return void
      *
-     * @priority MONITOR
+     * @priority HIGH
      */
     public function onEntityItemPickupEvent(EntityItemPickupEvent $event)
     {
