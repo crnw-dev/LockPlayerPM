@@ -118,7 +118,6 @@ class EventListener implements Listener
         }
         $this->debug("Cancelled movement for locked player {$event->getPlayer()->getName()}");
         $event->cancel();
-        $event->getPlayer()->onGround = true;
     }
 
     /**
