@@ -16,6 +16,7 @@ use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityItemPickupEvent;
 use pocketmine\event\inventory\InventoryOpenEvent;
 use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\event\player\PlayerDropItemEvent;
 use pocketmine\event\player\PlayerInteractEvent;
@@ -333,6 +334,16 @@ class EventListener implements Listener
                 $event->cancel();
             }
         }
+    }
+
+    /**
+     * @param PlayerChatEvent $event
+     * @return void
+     *
+     * @priority HIGH
+     */
+    public function onPlayerChatEvent(PlayerChatEvent $event) : void {
+        // TODO
     }
 
 }
